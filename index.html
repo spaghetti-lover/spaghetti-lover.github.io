@@ -1,0 +1,80 @@
+---
+---
+{% assign p = site.data.portfolio %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="{{ p.site.description | escape }}" />
+    <title>{{ p.site.title | escape }}</title>
+    <link rel="icon" href="{{ p.site.favicon | relative_url }}" type="image/png" />
+    <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}" />
+  </head>
+  <body>
+    <main class="site-shell">
+      <header class="masthead" id="top">
+        <div class="masthead-row">
+          <h1>{{ p.profile.name | escape }}</h1>
+          <button class="theme-toggle" type="button" aria-pressed="false" data-dark-label="{{ p.interface.dark_mode | escape }}" data-light-label="{{ p.interface.light_mode | escape }}">{{ p.interface.dark_mode | escape }}</button>
+        </div>
+      </header>
+
+      <section class="intro" aria-labelledby="intro-title">
+        <figure class="portrait-frame">
+          <img src="{{ p.profile.portrait | relative_url }}" alt="{{ p.profile.portrait_alt | escape }}" />
+        </figure>
+        <div class="intro-copy">
+          <p id="intro-title" class="lead">{{ p.profile.greeting | escape }}</p>
+          <p>{{ p.profile.role_prefix | escape }} <strong>{{ p.profile.role | escape }}</strong> {{ p.profile.workplace | escape }}</p>
+          <nav class="contact-links" aria-label="Contact links">
+            {% for link in p.profile.links %}
+              <a href="{{ link.url | escape }}"{% if link.url contains 'http' %} target="_blank" rel="noreferrer"{% endif %}>{{ link.label | escape }}</a>{% unless forloop.last %}<span>/</span>{% endunless %}
+            {% endfor %}
+          </nav>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="about-title">
+        <h2 id="about-title">{{ p.about.heading | escape }}</h2>
+        <p>{{ p.about.education_intro | escape }} <a href="{{ p.about.school_url | escape }}" target="_blank" rel="noreferrer"><strong>{{ p.about.school_name | escape }}</strong></a>.</p>
+        <p><b>{{ p.about.contact_label | escape }}</b>: {% for email in p.about.emails %}<a href="mailto:{{ email | escape }}">{{ email | escape }}</a>{% unless forloop.last %} | {% endunless %}{% endfor %}.</p>
+        <p><b>{{ p.about.interests_label | escape }}</b>: {{ p.about.interests | escape }}</p>
+      </section>
+
+      <section class="section projects" aria-labelledby="projects-title">
+        <h2 id="projects-title">{{ p.projects.heading | escape }}</h2>
+        <div class="project-list">
+          {% for project in p.projects.items %}
+          <article class="project-card">
+            {% if project.media.type == 'image' %}
+              <button class="project-media project-media--image" type="button" aria-label="{{ p.interface.enlarge_image | escape }} {{ project.title | escape }}"><img src="{{ project.media.path | relative_url }}" alt="{{ project.media.alt | escape }}" /></button>
+            {% else %}
+              <div class="project-media{% if project.media.tone == 'muted' %} project-media--muted{% endif %}" aria-hidden="true"><span>{{ project.media.label | escape }}</span></div>
+            {% endif %}
+            <div>
+              <h3>{{ project.title | escape }}</h3>
+              <p>{{ project.description | escape }}</p>
+              {% if project.links.size > 0 %}<p class="resource-links">{% for link in project.links %}<a href="{{ link.url | escape }}" target="_blank" rel="noreferrer">{{ link.label | escape }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}</p>{% endif %}
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="contact-title">
+        <h2 id="contact-title">{{ p.contact.heading | escape }}</h2>
+        <p>{{ p.contact.description | escape }}</p>
+        <p class="contact-email"><a href="mailto:{{ p.contact.email | escape }}">{{ p.contact.email | escape }}</a></p>
+      </section>
+
+      <footer class="site-footer">{{ p.footer.message | escape }} <a href="#top">{{ p.footer.back_to_top | escape }}</a></footer>
+    </main>
+
+    <dialog class="lightbox" aria-label="{{ p.interface.expanded_image | escape }}">
+      <button class="lightbox-close" type="button" aria-label="{{ p.interface.close_image | escape }}">×</button>
+      <img alt="" />
+    </dialog>
+    <script src="{{ '/script.js' | relative_url }}"></script>
+  </body>
+</html>

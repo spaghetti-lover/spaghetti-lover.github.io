@@ -1,0 +1,6 @@
+url: "https://spaghetti-lover.github.io"
+baseurl: ""
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
