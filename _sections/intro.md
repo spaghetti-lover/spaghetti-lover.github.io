@@ -5,7 +5,7 @@ portrait_alt: "Portrait of Duc Anh Phung"
 
 <p class="lead">Hi, I'm Duc Anh! 👋</p>
 
-I'm a CS new graduate from the [University of Engineering and Technology (UET-VNU)](https://uet.vnu.edu.vn/). I'm now a Full Stack Infrastructure Engineer Intern at a Singapore-based undisclosed hedge fund, where I work with super cool and supportive colleagues to build platforms for researchers.
+I'm a CS new graduate from the [University of Engineering and Technology (UET-VNU)](https://uet.vnu.edu.vn/). I'm now a <strong class="highlight">Full Stack Infrastructure Engineer Intern</strong> at a <span class="highlight">Singapore-based undisclosed hedge fund</span>, where I work with super cool and supportive colleagues to build platforms for researchers.
 
 **Recent interests**: agent memory, job schedulers, and mathematics.
 

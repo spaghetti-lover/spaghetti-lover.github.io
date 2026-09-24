@@ -34,6 +34,7 @@ p { margin: 0 0 0.55rem; }
 .portrait-frame { margin: 0; }
 .portrait-frame img { display: block; width: 100%; aspect-ratio: 0.8; object-fit: cover; }
 .lead { font-size: 1.1rem; }
+.highlight { color: var(--accent); }
 .research-note { margin-top: var(--space-4); color: var(--muted); font-size: 0.9rem; }
 .research-toggle, .pets-toggle { border: 0; background: transparent; padding: 0; cursor: pointer; text-align: left; }
 .research-toggle:hover, .pets-toggle:hover { color: var(--active); }
