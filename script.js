@@ -4,7 +4,9 @@ if (savedTheme === 'dark') document.documentElement.dataset.theme = 'dark';
 
 const syncThemeToggle = () => {
   const isDark = document.documentElement.dataset.theme === 'dark';
-  themeToggle.textContent = isDark ? themeToggle.dataset.lightLabel : themeToggle.dataset.darkLabel;
+  const label = isDark ? themeToggle.dataset.lightLabel : themeToggle.dataset.darkLabel;
+  themeToggle.setAttribute('aria-label', label);
+  themeToggle.setAttribute('title', label);
   themeToggle.setAttribute('aria-pressed', String(isDark));
 };
 

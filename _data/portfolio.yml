@@ -6,9 +6,9 @@ site:
 profile:
   name: "Duc Anh Phung (Felix)"
   greeting: "Hi, I'm Duc Anh! 👋"
-  role_prefix: "I'm an"
-  role: "Infrastructure Engineer Intern"
-  workplace: "at a Singapore-based undisclosed hedge fund."
+  introduction: "I'm a CS new graduate from the University of Engineering and Technology (UET-VNU). I'm now a Full Stack Infrastructure Engineer Intern at a Singapore-based undisclosed hedge fund, where I work with my super cool and supportive colleagues to build a platform for researchers."
+  interests_label: "Recent interests"
+  interests: "agent memory, job schedulers, and mathematics"
   portrait: /assets/portrait.png
   portrait_alt: "Portrait of Duc Anh Phung"
   links:
@@ -20,18 +20,6 @@ profile:
       url: "https://www.linkedin.com/in/ducanh25/"
     - label: Substack
       url: "https://substack.com/@phungducanh"
-
-about:
-  heading: About Me
-  education_intro: "New grad CS Student -"
-  school_name: "University of Technology and Engineering (UET-VNU)"
-  school_url: "https://uet.vnu.edu.vn/"
-  contact_label: Contact
-  emails:
-    - "felixphungducanh@gmail.com"
-    - "22028063@vnu.edu.vn"
-  interests_label: Recent interests
-  interests: "Agent Memory, Efficient models for Robotic."
 
 projects:
   heading: Projects
