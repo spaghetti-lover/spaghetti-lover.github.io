@@ -2,6 +2,11 @@ const themeToggle = document.querySelector('.theme-toggle');
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'dark') document.documentElement.dataset.theme = 'dark';
 
+document.querySelectorAll('main a[href^="http"]').forEach((link) => {
+  link.target = '_blank';
+  link.rel = 'noreferrer';
+});
+
 const syncThemeToggle = () => {
   const isDark = document.documentElement.dataset.theme === 'dark';
   const label = isDark ? themeToggle.dataset.lightLabel : themeToggle.dataset.darkLabel;

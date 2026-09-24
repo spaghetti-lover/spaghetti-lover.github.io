@@ -1,22 +1,27 @@
 ---
 ---
-{% assign p = site.data.portfolio %}
+{% assign section_documents = site.sections %}
+{% assign site_info = section_documents | where: "slug", "site" | first %}
+{% assign intro = section_documents | where: "slug", "intro" | first %}
+{% assign projects_section = section_documents | where: "slug", "projects" | first %}
+{% assign contact = section_documents | where: "slug", "contact" | first %}
+{% assign footer = section_documents | where: "slug", "footer" | first %}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="{{ p.site.description | escape }}" />
-    <title>{{ p.site.title | escape }}</title>
-    <link rel="icon" href="{{ p.site.favicon | relative_url }}" type="image/png" />
+    <meta name="description" content="{{ site_info.description | escape }}" />
+    <title>{{ site_info.title | escape }}</title>
+    <link rel="icon" href="{{ site_info.favicon | relative_url }}" type="image/png" />
     <link rel="stylesheet" href="{{ '/styles.css' | relative_url }}" />
   </head>
   <body>
     <main class="site-shell">
       <header class="masthead" id="top">
         <div class="masthead-row">
-          <h1>{{ p.profile.name | escape }}</h1>
-          <button class="theme-toggle" type="button" aria-label="{{ p.interface.dark_mode | escape }}" title="{{ p.interface.dark_mode | escape }}" aria-pressed="false" data-dark-label="{{ p.interface.dark_mode | escape }}" data-light-label="{{ p.interface.light_mode | escape }}">
+          <h1>{{ site_info.name | escape }}</h1>
+          <button class="theme-toggle" type="button" aria-label="Dark mode" title="Dark mode" aria-pressed="false" data-dark-label="Dark mode" data-light-label="Light mode">
             <svg class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <circle cx="12" cy="12" r="4" />
               <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
@@ -25,36 +30,32 @@
         </div>
       </header>
 
-      <section class="intro" aria-labelledby="intro-title">
+      <section class="intro" aria-label="Introduction">
+        {% if intro.portrait %}
         <figure class="portrait-frame">
-          <img src="{{ p.profile.portrait | relative_url }}" alt="{{ p.profile.portrait_alt | escape }}" />
+          <img src="{{ intro.portrait | relative_url }}" alt="{{ intro.portrait_alt | escape }}" />
         </figure>
+        {% endif %}
         <div class="intro-copy">
-          <p id="intro-title" class="lead">{{ p.profile.greeting | escape }}</p>
-          <p>{{ p.profile.introduction | escape }}</p>
-          <p><b>{{ p.profile.interests_label | escape }}</b>: {{ p.profile.interests | escape }}.</p>
-          <nav class="contact-links" aria-label="Contact links">
-            {% for link in p.profile.links %}
-              <a href="{{ link.url | escape }}"{% if link.url contains 'http' %} target="_blank" rel="noreferrer"{% endif %}>{{ link.label | escape }}</a>{% unless forloop.last %}<span>/</span>{% endunless %}
-            {% endfor %}
-          </nav>
+          {{ intro.content }}
         </div>
       </section>
 
       <section class="section projects" aria-labelledby="projects-title">
-        <h2 id="projects-title">{{ p.projects.heading | escape }}</h2>
+        <h2 id="projects-title">{{ projects_section.title | escape }}</h2>
+        {{ projects_section.content }}
         <div class="project-list">
-          {% for project in p.projects.items %}
+          {% assign projects = site.projects | sort: "order" %}
+          {% for project in projects %}
           <article class="project-card">
-            {% if project.media.type == 'image' %}
-              <button class="project-media project-media--image" type="button" aria-label="{{ p.interface.enlarge_image | escape }} {{ project.title | escape }}"><img src="{{ project.media.path | relative_url }}" alt="{{ project.media.alt | escape }}" /></button>
+            {% if project.thumbnail %}
+              <button class="project-media project-media--image" type="button" aria-label="Enlarge {{ project.title | escape }}"><img src="{{ project.thumbnail | relative_url }}" alt="{{ project.thumbnail_alt | escape }}" /></button>
             {% else %}
-              <div class="project-media{% if project.media.tone == 'muted' %} project-media--muted{% endif %}" aria-hidden="true"><span>{{ project.media.label | escape }}</span></div>
+              <div class="project-media" aria-hidden="true"><span>{{ project.thumbnail_label | default: project.title | escape }}</span></div>
             {% endif %}
             <div>
               <h3>{{ project.title | escape }}</h3>
-              <p>{{ project.description | escape }}</p>
-              {% if project.links.size > 0 %}<p class="resource-links">{% for link in project.links %}<a href="{{ link.url | escape }}" target="_blank" rel="noreferrer">{{ link.label | escape }}</a>{% unless forloop.last %}, {% endunless %}{% endfor %}</p>{% endif %}
+              {{ project.content }}
             </div>
           </article>
           {% endfor %}
@@ -62,16 +63,15 @@
       </section>
 
       <section class="section" aria-labelledby="contact-title">
-        <h2 id="contact-title">{{ p.contact.heading | escape }}</h2>
-        <p>{{ p.contact.description | escape }}</p>
-        <p class="contact-email"><a href="mailto:{{ p.contact.email | escape }}">{{ p.contact.email | escape }}</a></p>
+        <h2 id="contact-title">{{ contact.title | escape }}</h2>
+        {{ contact.content }}
       </section>
 
-      <footer class="site-footer">{{ p.footer.message | escape }} <a href="#top">{{ p.footer.back_to_top | escape }}</a></footer>
+      <footer class="site-footer">{{ footer.content }}</footer>
     </main>
 
-    <dialog class="lightbox" aria-label="{{ p.interface.expanded_image | escape }}">
-      <button class="lightbox-close" type="button" aria-label="{{ p.interface.close_image | escape }}">×</button>
+    <dialog class="lightbox" aria-label="Expanded project image">
+      <button class="lightbox-close" type="button" aria-label="Close image">×</button>
       <img alt="" />
     </dialog>
     <script src="{{ '/script.js' | relative_url }}"></script>

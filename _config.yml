@@ -1,5 +1,10 @@
 url: "https://spaghetti-lover.github.io"
 baseurl: ""
+collections:
+  sections:
+    output: false
+  projects:
+    output: false
 exclude:
   - Gemfile
   - Gemfile.lock
