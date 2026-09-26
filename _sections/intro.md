@@ -12,6 +12,7 @@ I'm a CS new graduate from the [University of Engineering and Technology (UET-VN
 <nav class="contact-links" aria-label="Contact links">
   <a href="mailto:felixphungducanh@gmail.com">Email</a><span>/</span>
   <a href="https://github.com/spaghetti-lover" target="_blank" rel="noreferrer">GitHub</a><span>/</span>
+  <a href="https://leetcode.com/u/fungd_anh/" target="_blank" rel="noreferrer">LeetCode</a><span>/</span>
   <a href="https://www.linkedin.com/in/ducanh25/" target="_blank" rel="noreferrer">LinkedIn</a><span>/</span>
   <a href="https://substack.com/@phungducanh" target="_blank" rel="noreferrer">Substack</a>
 </nav>

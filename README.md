@@ -12,8 +12,8 @@ The portfolio content lives in Markdown files. You can edit ordinary prose, head
 
 - `_sections/site.md` holds the browser title, description, favicon, and name in the masthead.
 - `_sections/intro.md` holds the introduction. Its header sets the portrait image and alt text.
-- `_sections/projects.md` holds the Projects heading and any introductory text above the cards.
-- `_sections/contact.md` and `_sections/footer.md` hold those free-form areas.
+- `_sections/news.md` and `_sections/projects.md` hold their headings and any introductory text above their content.
+- `_sections/footer.md` holds the footer area.
 
 The short block between the opening and closing `---` lines is front matter: it provides display metadata only. Preserve its indentation and keys. Everything below it is flexible Markdown/HTML content.
 
@@ -26,8 +26,13 @@ Each file in `_projects/` is one project. To add one, copy an existing file and 
 - `thumbnail`: optional `/assets/...` image path.
 - `thumbnail_alt`: required description when `thumbnail` is set.
 - `thumbnail_label`: optional label shown when there is no thumbnail.
+- `favorite: true` to include it in the default favorites tab.
 
 Write the description and links in the Markdown body. External links open in a new tab automatically. Upload new images to `assets/` through GitHub before referring to them.
+
+### News
+
+Each file in `_news/` is one timeline item. Copy an existing entry, set its `date`, and write the update (including any links) below the front matter. Entries are shown newest first.
 
 Only repository accounts with write access can change or remove content. Removed content remains recoverable from Git history.
 

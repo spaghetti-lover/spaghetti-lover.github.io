@@ -3,8 +3,8 @@
 {% assign section_documents = site.sections %}
 {% assign site_info = section_documents | where: "slug", "site" | first %}
 {% assign intro = section_documents | where: "slug", "intro" | first %}
+{% assign news_section = section_documents | where: "slug", "news" | first %}
 {% assign projects_section = section_documents | where: "slug", "projects" | first %}
-{% assign contact = section_documents | where: "slug", "contact" | first %}
 {% assign footer = section_documents | where: "slug", "footer" | first %}
 <!doctype html>
 <html lang="en">
@@ -41,15 +41,40 @@
         </div>
       </section>
 
+      <section class="section news" aria-labelledby="news-title">
+        <h2 id="news-title">{{ news_section.title | escape }}</h2>
+        {{ news_section.content }}
+        {% assign news_items = site.news | sort: "date" | reverse %}
+        <div class="news-list" data-news-list>
+          {% for item in news_items %}
+          <article class="news-item"{% if forloop.index > 5 %} hidden data-news-extra{% endif %}>
+            <time datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: "%b %Y" }}</time>
+            <div>{{ item.content }}</div>
+          </article>
+          {% endfor %}
+        </div>
+        {% if news_items.size > 5 %}
+        <button class="news-toggle" type="button" aria-expanded="false" data-news-toggle data-more-label="show more" data-less-label="show less">show more</button>
+        {% endif %}
+      </section>
+
       <section class="section projects" aria-labelledby="projects-title">
-        <h2 id="projects-title">{{ projects_section.title | escape }}</h2>
+        {% assign projects = site.projects | sort: "order" %}
+        {% assign favorite_projects = projects | where: "favorite", true %}
+        <div class="section-heading-row">
+          <h2 id="projects-title">{{ projects_section.title | escape }}</h2>
+          <div class="project-tabs" role="tablist" aria-label="Project groups">
+            <button class="project-tab is-active" type="button" role="tab" id="favorites-tab" aria-selected="true" aria-controls="favorites-projects" data-project-tab="favorites">my favorites ({{ favorite_projects.size }})</button>
+            <span aria-hidden="true">|</span>
+            <button class="project-tab" type="button" role="tab" id="all-projects-tab" aria-selected="false" aria-controls="all-projects" data-project-tab="all">still my favorites, but all ({{ projects.size }})</button>
+          </div>
+        </div>
         {{ projects_section.content }}
-        <div class="project-list">
-          {% assign projects = site.projects | sort: "order" %}
-          {% for project in projects %}
+        <div class="project-list" id="favorites-projects" role="tabpanel" aria-labelledby="favorites-tab" data-project-panel="favorites">
+          {% for project in favorite_projects %}
           <article class="project-card">
             {% if project.thumbnail %}
-              <button class="project-media project-media--image" type="button" aria-label="Enlarge {{ project.title | escape }}"><img src="{{ project.thumbnail | relative_url }}" alt="{{ project.thumbnail_alt | escape }}" /></button>
+              <button class="project-media project-media--image{% if project.thumbnail_tone %} project-media--{{ project.thumbnail_tone | escape }}{% endif %}" type="button" aria-label="Enlarge {{ project.title | escape }}"><img src="{{ project.thumbnail | relative_url }}" alt="{{ project.thumbnail_alt | escape }}" /></button>
             {% else %}
               <div class="project-media" aria-hidden="true"><span>{{ project.thumbnail_label | default: project.title | escape }}</span></div>
             {% endif %}
@@ -60,11 +85,21 @@
           </article>
           {% endfor %}
         </div>
-      </section>
-
-      <section class="section" aria-labelledby="contact-title">
-        <h2 id="contact-title">{{ contact.title | escape }}</h2>
-        {{ contact.content }}
+        <div class="project-list is-hidden" id="all-projects" role="tabpanel" aria-labelledby="all-projects-tab" data-project-panel="all">
+          {% for project in projects %}
+          <article class="project-card">
+            {% if project.thumbnail %}
+              <button class="project-media project-media--image{% if project.thumbnail_tone %} project-media--{{ project.thumbnail_tone | escape }}{% endif %}" type="button" aria-label="Enlarge {{ project.title | escape }}"><img src="{{ project.thumbnail | relative_url }}" alt="{{ project.thumbnail_alt | escape }}" /></button>
+            {% else %}
+              <div class="project-media" aria-hidden="true"><span>{{ project.thumbnail_label | default: project.title | escape }}</span></div>
+            {% endif %}
+            <div>
+              <h3>{{ project.title | escape }}</h3>
+              {{ project.content }}
+            </div>
+          </article>
+          {% endfor %}
+        </div>
       </section>
 
       <footer class="site-footer">{{ footer.content }}</footer>

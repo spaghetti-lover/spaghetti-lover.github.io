@@ -5,6 +5,8 @@ collections:
     output: false
   projects:
     output: false
+  news:
+    output: false
 exclude:
   - Gemfile
   - Gemfile.lock

@@ -40,3 +40,25 @@ lightbox?.querySelector('.lightbox-close')?.addEventListener('click', () => ligh
 lightbox?.addEventListener('click', (event) => {
   if (event.target === lightbox) lightbox.close();
 });
+
+const newsToggle = document.querySelector('[data-news-toggle]');
+newsToggle?.addEventListener('click', () => {
+  const expanded = newsToggle.getAttribute('aria-expanded') === 'true';
+  document.querySelectorAll('[data-news-extra]').forEach((item) => { item.hidden = expanded; });
+  newsToggle.setAttribute('aria-expanded', String(!expanded));
+  newsToggle.textContent = expanded ? newsToggle.dataset.moreLabel : newsToggle.dataset.lessLabel;
+});
+
+document.querySelectorAll('[data-project-tab]').forEach((tab) => {
+  tab.addEventListener('click', () => {
+    const group = tab.dataset.projectTab;
+    document.querySelectorAll('[data-project-tab]').forEach((item) => {
+      const selected = item === tab;
+      item.classList.toggle('is-active', selected);
+      item.setAttribute('aria-selected', String(selected));
+    });
+    document.querySelectorAll('[data-project-panel]').forEach((panel) => {
+      panel.classList.toggle('is-hidden', panel.dataset.projectPanel !== group);
+    });
+  });
+});
